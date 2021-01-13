@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CarAudioStream</string>
+    <string name="favourites">Favourites</string>
 </resources>

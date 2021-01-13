@@ -24,6 +24,11 @@
             </intent-filter>
 
         </service>
+        <receiver android:name=".util.Toaster">
+            <intent-filter>
+                <action android:name="com.nybsys.sentra_ptt.util.Toaster.ACTION_BROADCAST" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
