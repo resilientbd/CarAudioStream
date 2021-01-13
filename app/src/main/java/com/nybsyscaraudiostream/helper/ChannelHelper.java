@@ -2,6 +2,7 @@ package com.nybsyscaraudiostream.helper;
 
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.v4.media.MediaBrowserCompat.MediaItem;
 import android.support.v4.media.MediaDescriptionCompat;
@@ -15,15 +16,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChannelHelper {
-    private List<Channel> currentChannelList;
+    private static List<Channel> currentChannelList;
 
     public ChannelHelper(List<Channel> currentChannelList) {
         this.currentChannelList = currentChannelList;
     }
 
-    public List<MediaItem> createBrowsableListing(Context context) {
+    public static List<MediaItem> createBrowsableListing(Context context) {
         List<MediaItem> mediaDescListing = new ArrayList<>();
-        Uri iconUri = Uri.parse("android.resource://io.github.markspit93.autotechno/drawable/ic_round_star_24dp");
+        Uri iconUri = Uri.parse("android.resource://com.nybsyscaraudiostream/drawable/ic_round_star_24dp");
         MediaDescriptionCompat favouritesDesc = new MediaDescriptionCompat.Builder()
                 .setMediaId(AppEnums.MEDIA_ID_FAVOURITES)
                 .setTitle(context.getResources().getString(R.string.favourites))
@@ -34,21 +35,31 @@ public class ChannelHelper {
         return mediaDescListing;
     }
 
-    public List<MediaItem> createChildrenListing(Context context, String category) {
+    public static List<MediaItem> createChildrenListing(Context context, String category) {
+        List<MediaItem> mediaDescListing = new ArrayList<>();
+        List<Channel> channelList = ChannelList.getChannelsForStyle(category);
+        currentChannelList = channelList;
+        for (Channel channel : currentChannelList) {
+            MediaDescriptionCompat mediaDesc = new MediaDescriptionCompat.Builder()
+                    .setMediaId(channel.getMediaId())
+                    .setTitle(channel.getTitle())
+                    .setIconBitmap(BitmapFactory.decodeResource(context.getResources(), channel.getImageRes()))
+                    .build();
+            mediaDescListing.add(new MediaItem(mediaDesc, MediaItem.FLAG_PLAYABLE));
+        }
+        return mediaDescListing;
+    }
+
+    public static List<MediaItem> createFavouriteListing(Context context, List<Channel> favouriteChannels) {
         List<MediaItem> mediaDescListing = new ArrayList<>();
         return mediaDescListing;
     }
 
-    public List<MediaItem> createFavouriteListing(Context context, List<Channel> favouriteChannels) {
-        List<MediaItem> mediaDescListing = new ArrayList<>();
-        return mediaDescListing;
-    }
-
-    public Channel getChannelForId(String mediaId) {
+    public static Channel getChannelForId(String mediaId) {
         return currentChannelList.get(0);
     }
 
-    public String getNextMediaId(String currentMediaId) {
+    public static String getNextMediaId(String currentMediaId) {
         // getChannelForId(currentMediaId)==currentChannelList.
         // currentChannelList.get(.)
         try {
@@ -70,7 +81,7 @@ public class ChannelHelper {
 
     }
 
-    public String getPreviousMediaId(String currentMediaId) {
+    public static String getPreviousMediaId(String currentMediaId) {
         // getChannelForId(currentMediaId)==currentChannelList.
         // currentChannelList.get(.)
         try {
@@ -92,7 +103,7 @@ public class ChannelHelper {
 
     }
 
-    public String searchForChannelMediaId(String query) {
+    public static String searchForChannelMediaId(String query) {
         if (currentChannelList != null) {
             String mediaId = null;
             for (int i = 0; i < currentChannelList.size(); i++) {
@@ -107,7 +118,7 @@ public class ChannelHelper {
         }
     }
 
-    private int getIndex(List<Channel> channelList, String mediaId) {
+    private static int getIndex(List<Channel> channelList, String mediaId) {
         if (channelList != null) {
             int index = 0;
             for (int i = 0; i < channelList.size(); i++) {
@@ -122,7 +133,7 @@ public class ChannelHelper {
         }
     }
 
-    private int getLastIndex(List list) {
+    private static int getLastIndex(List list) {
         if (list != null) {
             return list.size() - 1;
         } else return -1;

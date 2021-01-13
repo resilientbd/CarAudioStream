@@ -6,6 +6,7 @@ import android.support.v4.media.session.MediaSessionCompat;
 import androidx.annotation.Nullable;
 
 import com.google.android.exoplayer2.ExoPlaybackException;
+import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
@@ -30,13 +31,18 @@ public class PlayerHolder implements Player.EventListener {
         this.session = session;
     }
     public void createPlayer(){
-
+        setPlaybackState(STATE_STOPPED,true);
+       // player = ExoPlayerFactory.newSimpleInstance
     }
-    public void startPlayer(Channel channel)
+    public void startPlaying(Channel channel)
     {
 
     }
-    public void stopPlayer()
+    public void continuePlaying()
+    {
+
+    }
+    public void stopPlaying()
     {
 
     }
@@ -99,5 +105,8 @@ public class PlayerHolder implements Player.EventListener {
     @Override
     public void onSeekProcessed() {
 
+    }
+
+    public void pausePlaying() {
     }
 }

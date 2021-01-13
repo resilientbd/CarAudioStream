@@ -4,23 +4,24 @@ import com.nybsyscaraudiostream.R;
 import com.nybsyscaraudiostream.model.Channel;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class ChannelList {
-    private final String CHANNEL_STYLE_AMBIENT = "Ambient";
-    private final String CHANNEL_STYLE_BASS = "Bass";
-    private final String CHANNEL_STYLE_CHILLOUT = "Chillout";
-    private final String CHANNEL_STYLE_CLASSIC = "Classic";
-    private final String CHANNEL_STYLE_DANCE = "Dance";
-    private final String CHANNEL_STYLE_DEEP = "Deep";
-    private final String CHANNEL_STYLE_EDM = "EDM";
-    private final String CHANNEL_STYLE_HARD = "Hard";
-    private final String CHANNEL_STYLE_HOUSE = "House";
-    private final String CHANNEL_STYLE_LOUNGE = "Lounge";
-    private final String CHANNEL_STYLE_SYNTH = "Synth";
-    private final String CHANNEL_STYLE_TECHNO = "Techno";
-    private final String CHANNEL_STYLE_TRANCE = "Trance";
-    private final String CHANNEL_STYLE_VOCAL = "Vocal";
+    private static final String CHANNEL_STYLE_AMBIENT = "Ambient";
+    private static final String CHANNEL_STYLE_BASS = "Bass";
+    private static final String CHANNEL_STYLE_CHILLOUT = "Chillout";
+    private static final String CHANNEL_STYLE_CLASSIC = "Classic";
+    private static final String CHANNEL_STYLE_DANCE = "Dance";
+    private static final String CHANNEL_STYLE_DEEP = "Deep";
+    private static final String CHANNEL_STYLE_EDM = "EDM";
+    private static final String CHANNEL_STYLE_HARD = "Hard";
+    private static final String CHANNEL_STYLE_HOUSE = "House";
+    private static final String CHANNEL_STYLE_LOUNGE = "Lounge";
+    private static final String CHANNEL_STYLE_SYNTH = "Synth";
+    private static final String CHANNEL_STYLE_TECHNO = "Techno";
+    private static final String CHANNEL_STYLE_TRANCE = "Trance";
+    private static final String CHANNEL_STYLE_VOCAL = "Vocal";
 
     List<String> getStyles() {
         List<String> styles = new ArrayList<>();
@@ -41,7 +42,74 @@ public class ChannelList {
         return styles;
     }
 
-    private List<Channel> ambientChannels() {
+    public static List<Channel> getChannelsForStyle(String category)
+    {
+        List<Channel> channelList = new ArrayList<>();
+        //TODO chillout and classic channel data should be update
+        switch (category)
+        {
+            case CHANNEL_STYLE_AMBIENT:
+                channelList.addAll(ambientChannels());
+                break;
+            case CHANNEL_STYLE_BASS:
+                channelList.addAll(ambientChannels());
+                break;
+            case CHANNEL_STYLE_CHILLOUT:
+                channelList.addAll(chilloutChannels());
+                break;
+            case CHANNEL_STYLE_CLASSIC:
+                channelList.addAll(classicChannels());
+                break;
+            case CHANNEL_STYLE_EDM:
+                channelList.addAll(edmChannels());
+                break;
+            case CHANNEL_STYLE_HARD:
+                channelList.addAll(hardChannels());
+                break;
+            case CHANNEL_STYLE_HOUSE:
+                channelList.addAll(houseChannels());
+                break;
+            case CHANNEL_STYLE_DANCE:
+                channelList.addAll(danceChannels());
+                break;
+            case CHANNEL_STYLE_DEEP:
+                channelList.addAll(deepChannels());
+                break;
+            case CHANNEL_STYLE_LOUNGE:
+                channelList.addAll(loungeChannels());
+                break;
+            case CHANNEL_STYLE_SYNTH:
+                channelList.addAll(synthChannels());
+                break;
+            case CHANNEL_STYLE_TECHNO:
+                channelList.addAll(technoChannels());
+                break;
+            case CHANNEL_STYLE_TRANCE:
+                channelList.addAll(tranceChannels());
+                break;
+            case CHANNEL_STYLE_VOCAL:
+                channelList.addAll(vocalChannels());
+                break;
+            default:classicChannels();
+            break;
+
+        }
+        return channelList;
+    }
+
+    private static List<Channel> vocalChannels() {
+        return ambientChannels();
+    }
+
+    private static List<Channel> tranceChannels() {
+        return bassChannels();
+    }
+
+    private static List<Channel> technoChannels() {
+        return chilloutChannels();
+    }
+
+    private static List<Channel> ambientChannels() {
         List<Channel> list = new ArrayList<>();
         list.add(new Channel("ambient", "Ambient", R.drawable.ambient));
         list.add(new Channel("chillout", "Chillout", R.drawable.chillout));
@@ -54,7 +122,7 @@ public class ChannelList {
         return list;
     }
 
-    private List<Channel> bassChannels() {
+    private static List<Channel> bassChannels() {
         List<Channel> list = new ArrayList<>();
         list.add(new Channel("atmosphericbreaks", "Atmospheric Breaks", R.drawable.atmposphericbreaks));
         list.add(new Channel("bassline", "Bassline", R.drawable.bassline));
@@ -81,13 +149,28 @@ public class ChannelList {
         return list;
     }
 
-    private List<Channel> chilloutChannels() {
+    private static List<Channel> chilloutChannels() {
         List<Channel> list = new ArrayList<>();
-        list.add(new Channel());
+        list.add(new Channel("chillhop", "Chillhop", R.drawable.chillhop));
+        list.add(new Channel("chillntropicalhouse", "Chill & Tropical House", R.drawable.chilltropicalhouse));
+        list.add(new Channel("deephouse", "Deep House", R.drawable.deephouse));
+        list.add(new Channel("deepnudisco", "Deep Nu-Disco", R.drawable.deepnudisco));
+        list.add(new Channel("downtempolounge", "Downtempo Lounge", R.drawable.downtempolounge));
+        list.add(new Channel("dubtechno", "Dub Techno", R.drawable.dubtechno));
+        return list;
+    }
+    private static List<Channel> classicChannels() {
+        List<Channel> list = new ArrayList<>();
+        list.add(new Channel("00sclubhits", "00s Club Hits", R.drawable.clubhits));
+        list.add(new Channel("classiceurodance", "Classic Eurodance", R.drawable.classiceurodance));
+        list.add(new Channel("classiceurodisco", "Classic Eurodisco", R.drawable.classiceurodisco));
+        list.add(new Channel("00sclubhits", "00s Club Hits", R.drawable.clubhits));
+        list.add(new Channel("00sclubhits", "00s Club Hits", R.drawable.clubhits));
+        list.add(new Channel("00sclubhits", "00s Club Hits", R.drawable.clubhits));
         return list;
     }
 
-    private List<Channel> edmChannels() {
+    private static List<Channel> edmChannels() {
         List<Channel> list = new ArrayList<>();
         list.add(new Channel("ambient", "Ambient", R.drawable.ambient));
         list.add(new Channel("chillout", "Chillout", R.drawable.chillout));
@@ -112,7 +195,7 @@ public class ChannelList {
         return list;
     }
 
-    private List<Channel> danceChannels() {
+    private static List<Channel> danceChannels() {
         List<Channel> list = new ArrayList<>();
         list.add(new Channel("00sclubhits", "00s Club Hits", R.drawable.clubhits));
         list.add(new Channel("bassnjackinhouse", "Bass & Jackin' House", R.drawable.bassnjackinhouse));
@@ -141,7 +224,7 @@ public class ChannelList {
         return list;
     }
 
-    private List<Channel> deepChannels() {
+    private static List<Channel> deepChannels() {
         List<Channel> list = new ArrayList<>();
         list.add(new Channel("deephouse", "Deep House", R.drawable.deephouse));
         list.add(new Channel("deepnudisco", "Deep Nu-Disco", R.drawable.deepnudisco));
@@ -151,7 +234,7 @@ public class ChannelList {
         return list;
     }
 
-    private List<Channel> hardChannels() {
+    private static List<Channel> hardChannels() {
         List<Channel> list = new ArrayList<>();
         list.add(new Channel("bigroomhouse", "Big Room House", R.drawable.bigroomhouse));
         list.add(new Channel("clubdubstep", "Club Dubstep", R.drawable.clubdubstep));
@@ -174,7 +257,7 @@ public class ChannelList {
         return list;
     }
 
-    private List<Channel> houseChannels() {
+    private static List<Channel> houseChannels() {
         List<Channel> list = new ArrayList<>();
         list.add(new Channel("bassline", "Bassline", R.drawable.bassline));
         list.add(new Channel("bassnjackinhouse", "Bass & Jackin' House", R.drawable.bassnjackinhouse));
@@ -209,7 +292,7 @@ public class ChannelList {
         return list;
     }
 
-    private List<Channel> loungeChannels() {
+    private static List<Channel> loungeChannels() {
         List<Channel> list = new ArrayList<>();
         list.add(new Channel("chillhop", "Chillhop", R.drawable.chillhop));
         list.add(new Channel("chillntropicalhouse", "Chill & Tropical House", R.drawable.chilltropicalhouse));
@@ -236,7 +319,7 @@ public class ChannelList {
         return list;
     }
 
-    private List<Channel> synthChannels() {
+    private static List<Channel> synthChannels() {
         List<Channel> list = new ArrayList<>();
         list.add(new Channel("electronicpioneers", "Electronic Pioneers", R.drawable.electronicpioneers));
         list.add(new Channel("futuresynthpop", "Future Synthpop", R.drawable.futuresynthwave));
